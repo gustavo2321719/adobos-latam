@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio En Vivo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="player-container">
+            <div id="bar">
+                <h1>Adobos Radio</h1>
+                <div class="right-content">
+                    <div class="social-links-2">
+                        <a href="https://www.youtube.com/@Adobo-latam" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@adobolatam?is_from_webapp=1&sender_device=pc" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.instagram.com/adobolatam?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://open.spotify.com/show/16BTrcFzNNwy9LmhdFaxaW?si=4113488a7c9a48a3" target="_blank"><i class="fab fa-spotify"></i></a>
+                    </div>
+                    <img id="logo_adobos_latam" src="./source/Logo.png" alt="logo de adobo latam">
+                </div>
+            </div>
+            
+            <div class="custom-player" style="background-image: url('./source/fondo-1.jpg');"> <!-- parte donde se muestra el reproductor de la radio -->
+                <audio id="radio-player" class="audio-player">
+                    <source src="./source/Ado新人類 歌いました.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <div class="player-controls">
+                    <button class="play-button" onclick="togglePlay()">
+                        <i class="fas fa-play" id="play-icon"><span id="boton"> Play</span></i>
+                    </button>
+                    <div class="volume-control">
+                        <i class="fas fa-volume-up"></i>
+                        <input type="range" id="volume-slider" min="0" max="100" value="100">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Commented out bottom social links since they're now in the top bar
+                <div class="social-links" >
+                    <a href="https://www.youtube.com/@Adobo-latam" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.tiktok.com/@adobolatam?is_from_webapp=1&sender_device=pc" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/adobolatam?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://open.spotify.com/show/16BTrcFzNNwy9LmhdFaxaW?si=4113488a7c9a48a3" target="_blank"><i class="fab fa-spotify"></i></a>
+                </div>
+                -->
+    </div>
+
+    <script>
+        const audio = document.getElementById('radio-player');
+        const playIcon = document.getElementById('play-icon');
+        const botonText = document.getElementById('boton');
+        const volumeSlider = document.getElementById('volume-slider');
+
+        function togglePlay() {
+            if (audio.paused) {
+                audio.play();
+                playIcon.className = 'fas fa-pause';
+                botonText.innerHTML = " Pause";
+            } else {
+                audio.pause();
+                playIcon.className = 'fas fa-play';
+                botonText.innerHTML = " Play";
+            }
+        }
+
+        volumeSlider.addEventListener('input', function() {
+            audio.volume = this.value / 100;
+        });
+    </script>
+</body>
+</html>
