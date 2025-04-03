@@ -26,7 +26,13 @@
             
             <div style="background-color: rgb(119, 119, 119); border-radius: 25px;">
             <div class="custom-player"> <!-- parte donde se muestra el reproductor de la radio -->
-                <div class="background-overlay"></div>
+                <div class="background-overlay">
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="./source/fondo-mobile.jpg">
+                        <source media="(min-width: 769px)" srcset="./source/fondo-1.jpg">
+                        <img src="./source/fondo-1.jpg" alt="background" style="display: none;">
+                    </picture>
+                </div>
                 <audio id="radio-player" class="audio-player">
                     <source src="./source/Ado新人類 歌いました.mp3" type="audio/mpeg">
                     Your browser does not support the audio element.
