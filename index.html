@@ -49,17 +49,14 @@
             </div>
         </div>
         </div>
-
-        <!-- Commented out bottom social links since they're now in the top bar
-                <div class="social-links" >
-                    <a href="https://www.youtube.com/@Adobo-latam" target="_blank"><i class="fab fa-youtube"></i></a>
-                    <a href="https://www.tiktok.com/@adobolatam?is_from_webapp=1&sender_device=pc" target="_blank"><i class="fab fa-tiktok"></i></a>
-                    <a href="https://www.instagram.com/adobolatam?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://open.spotify.com/show/16BTrcFzNNwy9LmhdFaxaW?si=4113488a7c9a48a3" target="_blank"><i class="fab fa-spotify"></i></a>
-                </div>
-                -->
     </div>
-
+    <footer class="footer">
+        <div id="disqus_thread"></div>
+        <p>2025 Adobo Radio | Marca pendiente de registro. Comunidad fan sin ánimo de lucro, sin contacto oficial con ninguna productora ni marca relacionada. Todos los derechos reservados.</p>
+        <p>Programación por: Gustavo Nazario</p>
+        
+    <script id="dsq-count-scr" src="//adoboradio.disqus.com/count.js" async></script>
+    </footer>
     <script>
         const audio = document.getElementById('radio-player');
         const playIcon = document.getElementById('play-icon');
@@ -82,5 +79,23 @@
             audio.volume = this.value / 100;
         });
     </script>
+    <script>
+        /**
+        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+        /*
+        var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        */
+        (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://adoboradio.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </body>
 </html>
