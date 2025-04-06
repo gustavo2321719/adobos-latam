@@ -20,14 +20,14 @@ h1{
     width: 100%;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: flex-start
 }
 
 .centrado {
-    max-width: 1200px; /* You can adjust this value based on your needs */
-    margin: 0 auto;
-    padding: 20px;
+    width: 100%;
+    margin: 0 20px;
+    display: flex;
+    justify-content: center;
 }
 
 .player-container {
@@ -229,9 +229,6 @@ h1{
         padding-left: 10px;
     }
 
-    .container {
-        padding: 10px;
-    }
 
     .player-container {
         padding: 15px;
