@@ -21,7 +21,7 @@ h1{
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start
 }
 
 .centrado {
@@ -101,12 +101,15 @@ h1{
 
 .player-controls {
     position: relative;
-    max-width: 50%;
+    max-width: 100%;
     z-index: 1;
     background: rgba(0, 0, 0, 0.3);
-    padding: 20px;
     border-radius: 10px;
-    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    background: #4d84b8;
 }
 
 .volume-control {
@@ -115,29 +118,6 @@ h1{
     gap: 10px;
     margin-left: 20px;
     margin-right: 20px;
-}
-
-.player-controls {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 5px;
-    background: #4d84b8;
-    border-radius: 25px;
-}
-
-.play-button {
-    font-size: 24px;
-    padding: 15px 20px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(255, 255, 255, 0.2);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.play-button:hover {
-    background: rgba(255, 255, 255, 0.3);
 }
 
 .volume-control {
@@ -172,11 +152,11 @@ h1{
 .play-button {
     background: #4d84b8;
     border: none;
-    padding: 15px 30px;
+    padding: 12px 20px;
     border-radius: 25px;
     color: white;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 13px;
     transition: all 0.3s ease;
 }
 
@@ -354,11 +334,16 @@ h1{
 }
 
 .comentarios {
-   width: 80%;
+   width: 90%;
    margin: 0 auto;
    padding: 20px;
    background-color: #4d84b8;
    border-radius: 15px;
    margin-bottom: 20px;
+}
+h3 {
+   color: #ffffff;
+   font-size: 24px;
+   margin-bottom: 10px; 
 }
 
