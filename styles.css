@@ -17,18 +17,27 @@ h1{
 }
 
 .container {
-    max-width: 100%;
-    height: 100vh;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.centrado {
+    max-width: 1200px; /* You can adjust this value based on your needs */
     margin: 0 auto;
     padding: 20px;
 }
 
 .player-container {
+    width: 100%;
     background-color: #4d84b8;
     border-radius: 15px;
     padding: 30px;
     margin: 20px 0;
     box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    max-width: 815px;
     
 }
 
@@ -143,7 +152,7 @@ h1{
 }
 
 #volume-slider {
-    width: 150px;
+    width: 140px;
     height: 8px;
     -webkit-appearance: none;
     background: rgba(255, 255, 255, 0.2);
@@ -343,3 +352,4 @@ h1{
     padding: 0 20px;
     line-height: 1.5;
 }
+
