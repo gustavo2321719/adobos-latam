@@ -3,10 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Radio Adobo - Lo mejor de la música j-pop y vocaloid">
+    <meta name="keywords" content="radio latina, música japonesa, radio online, adobo radio, entretenimiento latino, j-pop, vocaloid">
+    <meta name="author" content="Adobo Radio | Gustavo Nazario">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Radio Adobo - Lo mejor de la música j-pop y vocaloid">
+    <meta property="og:description" content="Tu radio favorita con la mejor música j-pop y vocaloid">
+    <meta property="og:image" content="/imagenes/Logo.png">
+    <meta property="og:url" content="https://radioadobo.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Radio Adobo - Música j-pop y vocaloid">
+    <meta name="twitter:description" content="Radio Adobo - Lo mejor de la música j-pop y vocaloid">
     <title>Adobos radio</title>
-    <link rel="icon" type="image/png" href="./source/Logo.png">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="/imagenes/Logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script id="sonic_js" data-port="8178" src="https://sonic.portalfoxmix.club/cp/widgets.js?r=543"></script>
+
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #1a1a2e;
+    color: #ffffff;
+    background-image: url('/imagenes/Fondo.png');
+    background-size: cover;
+    background-position: center;
+}
+    </style>
 </head>
 <body>
     <div class="container">
@@ -21,28 +45,32 @@
                         <a href="https://www.instagram.com/adobolatam?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fab fa-instagram"></i></a>
                         <a href="https://open.spotify.com/show/16BTrcFzNNwy9LmhdFaxaW?si=4113488a7c9a48a3" target="_blank"><i class="fab fa-spotify"></i></a>
                     </div>
-                    <img id="logo_adobos_latam" src="./source/Logo.png" alt="logo de adobo latam">
+                    <img id="logo_adobos_latam" src="/imagenes/Logo.png" alt="logo de adobo latam">
                 </div>
             </div>
             
             <div style="background-color: rgb(119, 119, 119); border-radius: 25px;">
             <div class="custom-player"> <!-- parte donde se muestra el reproductor de la radio -->
                 <div class="background-overlay">
-                    <picture>
-                        <img src="./source/adopropia.jpg" alt="background" style="display: none;">
-                    </picture>
                 </div>
                 <audio id="radio-player" class="audio-player">
                     <source src="https://sonic.portalfoxmix.club/8178/stream" type="audio/mpeg">
                     Your browser does not support the audio element.
                 </audio>
                 <div class="player-controls">
-                    <button class="play-button" onclick="togglePlay()">
-                        <i class="fas fa-play" id="play-icon"><span id="boton"> Play</span></i>
-                    </button>
-                    <div class="volume-control">
-                        <i class="fas fa-volume-up"></i>
-                        <input type="range" id="volume-slider" min="0" max="100" value="100">
+                    <div class="reproductor">
+                        <button class="play-button" onclick="togglePlay()">
+                            <i class="fas fa-play" id="play-icon"><span id="boton"> Play</span></i>
+                        </button>
+                        <div class="volume-control">
+                            <i class="fas fa-volume-up"></i>
+                            <input type="range" id="volume-slider" min="0" max="100" value="100">
+                        </div>
+                    </div>    
+                    
+                    
+                    <div class="widget-box">
+                        <strong>Conectados: <span id="sonic_listeners"></span></strong>
                     </div>
                 </div>
             </div>
@@ -53,44 +81,475 @@
     <footer class="footer">
         <h3>Comentarios de Adobo radio</h3>
         <div class="comentarios">
-            <div id="disqus_thread"></div>
+            <button id="show-comments" class="comments-button">Ver comentarios</button>
+            <div id="flora"></div>
         </div>
         <p>2025 Adobo Radio | Marca pendiente de registro. Comunidad fan sin ánimo de lucro, sin contacto oficial con ninguna productora ni marca relacionada. Todos los derechos reservados.</p>
-        <p>Programación por: Gustavo Nazario</p>
-        
-    
+        <p>Ilustrasiones por: @joan_rha (Instagram / Trend)</p>
+        <p>Programación de la página web por: Gustavo Nazario</p>
     </footer>
     <script id="dsq-count-scr" src="//adoboradio.disqus.com/count.js" async></script>
-    <script>
+<script>
+ document.getElementById('show-comments').addEventListener('click', function() {
+        const floraDiv = document.getElementById('flora');
+        floraDiv.id = 'disqus_thread';
+        this.style.display = 'none';
+        
+        // Load Disqus
+        var d = document, s = d.createElement('script');
+        s.src = 'https://adoboradio.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    });
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
         const audio = document.getElementById('radio-player');
         const playIcon = document.getElementById('play-icon');
         const botonText = document.getElementById('boton');
         const volumeSlider = document.getElementById('volume-slider');
 
-        function togglePlay() {
+        // Handle audio loading errors
+        audio.addEventListener('error', function(e) {
+            console.error('Error loading audio:', e);
+            alert('Error loading audio stream. Please try again later.');
+        });
+
+        // Define togglePlay in global scope so onclick can access it
+        window.togglePlay = function() {
             if (audio.paused) {
-                audio.play();
-                playIcon.className = 'fas fa-pause';
-                botonText.innerHTML = " Pause";
+                // Start loading and playing the stream
+                audio.load();
+                const playPromise = audio.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        playIcon.className = 'fas fa-pause';
+                        botonText.innerHTML = " Pause";
+                    }).catch(error => {
+                        console.error('Error playing audio:', error);
+                        playIcon.className = 'fas fa-play';
+                        botonText.innerHTML = " Play";
+                    });
+                }
             } else {
                 audio.pause();
                 playIcon.className = 'fas fa-play';
                 botonText.innerHTML = " Play";
             }
-        }
+        };
 
+        // Handle volume control
         volumeSlider.addEventListener('input', function() {
-            audio.volume = this.value / 100;
+            const volume = this.value / 100;
+            audio.volume = volume;
         });
-    </script>
-    <script>
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://adoboradio.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+        // Initialize volume on load
+        audio.volume = volumeSlider.value / 100;
+    });
+</script>
+
+<style>
+
+.comments-button {
+        background: #00b4d8;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 25px;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .comments-button:hover {
+        background: #0096c7;
+    }
+
+
+.widget-box {
+   font-size: 18px;
+   text-align: center;
+}
+
+.reproductor {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+ 
+h1{
+    padding-left: 20px;
+    font-size: 40px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+
+.container {
+    width: 100%;
+    min-height: 90vh;
+    display: flex;
+    align-items: flex-start
+}
+
+.centrado {
+    width: 100%;
+    margin: 0 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.player-container {
+    width: 100%;
+    background-color: #4d84b8;
+    border-radius: 15px;
+    padding: 30px;
+    margin: 20px 0;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    max-width: 815px;
+    
+}
+
+.audio-player {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.custom-player {
+    position: relative;
+    min-height: 500px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+    overflow: hidden;
+    border-radius: 25px;
+}
+
+.background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+}
+
+.background-overlay picture {
+    width: 100%;
+    height: 100%;
+}
+
+.background-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.8;
+    z-index: 0;
+}
+
+@media screen and (max-width: 514px) {
+    .background-overlay::before {
+        background-image: url('/imagenes/Adopropia.jpg');
+    }
+}
+
+@media screen and (min-width: 515px) {
+    .background-overlay::before {
+        background-image: url('/imagenes/Adopropia2.jpg');
+    }
+}
+
+.player-controls {
+    position: relative;
+    max-width: 100%;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    background: #4d84b8;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.volume-control i {
+    font-size: 20px;
+    color: white;
+}
+
+#volume-slider {
+    width: 140px;
+    height: 8px;
+    -webkit-appearance: none;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    outline: none;
+}
+
+#volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.play-button {
+    background: #4d84b8;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.play-button:hover {
+    background: #12baf1;
+}
+
+.social-links {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.social-links a {
+    display: inline-block;
+    margin: 0 15px;
+    color: #00b4d8;
+    font-size: 24px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #0096c7;
+}
+
+#logo_adobos_latam{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+#bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.right-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.social-links-2 {
+    text-align: center;
+    padding-inline: 20px;
+}
+
+.social-links-2 a {
+    display: inline-block;
+    margin: 0 15px;
+    color: #00b4d8;
+    font-size: 24px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.social-links-2 a:hover {
+    color: #0096c7;
+}
+
+/* Media Queries for Responsive Design */
+@media screen and (max-width: 768px) {
+    h1 {
+        font-size: 28px;
+        padding-left: 10px;
+    }
+    .widget-box {
+   font-size: 15px;
+    }
+
+    .reproductor {
+      gap: 10px; 
+    }
+
+    .player-container {
+        padding: 15px;
+    }
+
+    .custom-player {
+        min-height: 400px;
+    }
+
+    .player-controls {
+        max-width: 90%;
+        padding: 10px;
+    }
+
+    .play-button {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+
+    .volume-control {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #volume-slider {
+        width: 100px;
+    }
+
+    .social-links a,
+    .social-links-2 a {
+        font-size: 20px;
+        margin: 0 10px;
+    }
+
+    #logo_adobos_latam {
+        width: 80px;
+        height: 80px;
+    }
+
+    #bar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .right-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .social-links-2 {
+        padding-inline: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .widget-box {
+   font-size: 11px;
+    }
+
+    
+    h1 {
+        font-size: 24px;
+    }
+
+    .custom-player {
+        min-height: 300px;
+    }
+
+    .reproductor {
+        max-width: 100%;
+        flex-direction: column;
+    }
+
+    .volume-control {
+        width: 100%;
+        justify-content: center;
+    }
+
+    #volume-slider {
+        width: 80%;
+    }
+
+    #logo_adobos_latam {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+
+.footer {
+    background-color: #333;
+    text-align: center;
+    padding: 20px;
+    height: auto;
+    max-width: 100%;
+    font-size: 1.3vh;
+}
+
+.footer p {
+    color: #fff;
+    margin: 0;
+    padding: 0 20px;
+    line-height: 1.5;
+}
+
+.comentarios {
+   width: 90%;
+   margin: 0 auto;
+   padding: 20px;
+   background-color: #4d84b8;
+   border-radius: 15px;
+   margin-bottom: 20px;
+}
+h3 {
+   color: #ffffff;
+   font-size: 24px;
+   margin-bottom: 10px; 
+}
+
+</style>
+<!-- Replace the existing script for show-comments with this one -->
+<script>
+    document.getElementById('show-comments').addEventListener('click', function() {
+        const floraDiv = document.getElementById('flora');
+        floraDiv.id = 'disqus_thread';
+        this.style.display = 'none';
+        
+        // Reload Disqus
+        if (window.DISQUS) {
+            DISQUS.reset({
+                reload: true,
+                config: function () {
+                    this.page.identifier = window.location.pathname;
+                    this.page.url = window.location.href;
+                }
+            });
+        } else {
+            // If DISQUS hasn't loaded yet, load it
+            (function() {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://adoboradio.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        }
+    });
+</script>
 </body>
 </html>
