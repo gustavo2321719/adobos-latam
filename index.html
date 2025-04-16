@@ -33,6 +33,19 @@
     </style>
 </head>
 <body>
+    <dialog id="welcomeModal" closedby="any">
+        <h2>¡No te lo pierdas!</h2>
+        <p>El día miercoles 16 de abril, podras escuchar el concierto "Shinzou" en la radio.</p>
+        <p class="tamano">México / Guatemala → 18:00 hrs</p>
+        <p class="tamano">Colombia / Ecuador → 19:00 hrs</p>
+        <p class="tamano">Venezuela / Perú / Bolivia → 20:00 hrs</p>
+        <p class="tamano">Chile → 21:00 hrs</p>
+        <p class="tamano">Argentina / Uruguay / Paraguay / Brasil → 22:00 hrs</p>
+        <div style="display: flex; flex-direction: column; align-items: center; ">
+            <img src="/imagenes/Shinzou.jpg" alt="shinzou">
+            <button id="closeModal">Cerrar</button>
+        </div>
+    </dialog>
     <div class="container">
         <div class="centrado">
         <div class="player-container">
@@ -151,6 +164,47 @@
 </script>
 
 <style>
+.tamano {
+    font-size: x-small;
+    margin: 0px 0px;
+} 
+
+        dialog {
+        background: #4d84b8;
+        border-radius: 15px;
+        border: none;
+        color: white;
+        width: 400px;
+        text-align: center;
+    }
+    dialog img {
+        margin-top: 10px;
+        width: 80%;
+        max-width: 400px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+    }
+
+    dialog::backdrop {
+        background: rgba(0, 0, 0, 0.6);
+    }
+
+    #closeModal {
+        width: 50%;
+        background: #00b4d8;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 25px;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 15px;
+        transition: all 0.3s ease;
+    }
+
+    #closeModal:hover {
+        background: #0096c7;
+    }
 #sonic_title {
     white-space: pre-line;
 }
@@ -556,3 +610,30 @@ h3 {
 </script>
 </body>
 </html>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('welcomeModal');
+        const closeButton = document.getElementById('closeModal');
+        
+        // Show modal when page loads
+        modal.showModal();
+        
+        // Close modal when close button is clicked
+        closeButton.addEventListener('click', () => {
+            modal.close();
+        });
+        
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            const dialogDimensions = modal.getBoundingClientRect();
+            if (
+                e.clientX < dialogDimensions.left ||
+                e.clientX > dialogDimensions.right ||
+                e.clientY < dialogDimensions.top ||
+                e.clientY > dialogDimensions.bottom
+            ) {
+                modal.close();
+            }
+        });
+    });
+</script>
